@@ -3,9 +3,10 @@ layout: default
 ---
 <article>
 	<h2>{{ page.title }}</h2>
-	<div>{{ page.date }} &mdash; {{ page.author }}</div>
+	<div>{{ page.date | date_to_string }} &mdash; {{ page.author }}</div>
 	<div>{{ content }}</div>
 </article>
+{% if site.related_posts %}
 <aside>
   <h2>related</h2>
   <ul>
@@ -14,3 +15,4 @@ layout: default
     {% endfor %}
   </ul>
 </aside>
+{% endif %}
