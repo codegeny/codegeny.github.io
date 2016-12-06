@@ -2,12 +2,8 @@
 layout: post
 title: Hello world!
 author: Xavier
+date: 06 Dec 2016
 ---
-{{ page.title }}
-================
-
-<p>06 Dec 2016 &mdash; {{ page.author }}</p>
-
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
