@@ -8,7 +8,7 @@
 	<updated>{{ site.time | date_to_xmlschema }}</updated>
 	<id>http://codegeny.org/</id>
 	<author>
-		<name>Codegeny</name>
+		<name>codegeny</name>
 	</author>
 	{% for post in site.posts %}
 	<entry>
