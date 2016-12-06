@@ -5,7 +5,7 @@
 	<title>codegeny</title>
 	<link href="atom.xml" rel="self"/>
 	<updated>{{ site.time | date_to_xmlschema }}</updated>
-	<id>urn:codegeny.org:feed</id>
+	<id>urn:org:codegeny:posts</id>
 	<author>
 		<name>codegeny</name>
 	</author>
@@ -14,7 +14,7 @@
 		<title>{{ post.title }}</title>
 		<link href="{{ post.url }}"/>
 		<updated>{{ post.date | date_to_xmlschema }}</updated>
-		<id>urn:codegeny.org:post:{{ post.id }}</id>
+		<id>urn:org:codegeny:posts:{{ forloop.index }}</id>
 		<author>
 			<name>{{ post.author }}</name>
 		</author>
