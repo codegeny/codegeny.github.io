@@ -16,6 +16,9 @@
 		<link href="http://codegeny.org{{ post.url }}"/>
 		<updated>{{ post.date | date_to_xmlschema }}</updated>
 		<id>http://codegeny.org{{ post.id }}</id>
+		<author>
+			<name>{{ post.author }}</name>
+		</author>
 		<content type="html">{{ post.content | xml_escape }}</content>
  	</entry>
  	{% endfor %}
