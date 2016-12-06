@@ -6,7 +6,7 @@ layout: default
 	<div>{{ page.date | date_to_string }} &mdash; {{ page.author }}</div>
 	<div>{{ content }}</div>
 </article>
-{% if site.related_posts != '' %}
+{% if site.related_posts.size %}
 <aside>
   <h2>related</h2>
   <ul>
