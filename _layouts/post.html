@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{% assign author = site.authors[page.author] %}
+{% assign author = site.data.authors[page.author] %}
 <article>
 	<h2>{{ page.title }}</h2>
 	<div>{{ page.date | date_to_string }} &mdash; {{ author.name }} <img src="https://github.com/{{ author.github }}.png" width="32" height="32" /></div>
