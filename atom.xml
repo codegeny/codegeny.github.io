@@ -14,7 +14,7 @@
 		<title>{{ post.title }}</title>
 		<link href="{{ post.url }}"/>
 		<updated>{{ post.date | date_to_xmlschema }}</updated>
-		<id>urn:org:codegeny:posts:{{ post.path }}</id>
+		<id>urn:org:codegeny:posts:{{ post.path | remove:"_posts/" | remove:".md" }}</id>
 		<author>
 			<name>{{ post.author }}</name>
 		</author>
