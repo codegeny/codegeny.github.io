@@ -3,6 +3,6 @@ layout: default
 ---
 {% assign author = site.data.authors[page.author] %}
 <div class="blog-post">
-	<h3>{{ post.title }} <small>{{ post.date | date_to_string }} by {{ author.name }} <img src="https://github.com/{{ author.github }}.png" width="32" height="32" /></small></h3>
+	<h3>{{ page.title }} <small>{{ page.date | date_to_string }} by {{ author.name }} <img src="https://github.com/{{ author.github }}.png" width="32" height="32" /></small></h3>
 	<p>{{ content }}</p>
 </div>
