@@ -8,15 +8,33 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css" />
 	</head>
 	<body>
-		<header>
-			<nav>
-				<ul>
-					<li><a href="/">codegeny</a></li>
-					<li><a href="/">home</a></li>
+		<div class="top-bar">
+			<div class="top-bar-left">
+				<ul class="menu">
+					<li class="menu-text">codegeny</li>
 				</ul>
-			</nav>
-		</header>
-		<main>{{ content }}</main>
-		<footer>&copy; 2016 &mdash; <a href="/">codegeny</a></footer>
+			</div>
+		</div>
+ 		<div class="callout large primary">
+			<div class="row column text-center">
+				<h1>codegeny blog</h1>
+			</div>
+		</div>
+		<div class="row" id="content">
+			<div class="medium-8 columns">{{ content }}</div>
+			<div class="medium-3 columns" data-sticky-container>
+				<div class="sticky" data-sticky data-anchor="content">
+					<h4>Categories</h4>
+					<ul>
+						<li><a href="#">JavaSE</a></li>
+						<li><a href="#">JavaEE</a></li>
+					</ul>
+					<h4>Authors</h4>
+					<ul>
+						<li><a href="#">Xavier</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

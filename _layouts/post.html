@@ -2,18 +2,7 @@
 layout: default
 ---
 {% assign author = site.data.authors[page.author] %}
-<article>
-	<h2>{{ page.title }}</h2>
-	<div>{{ page.date | date_to_string }} &mdash; {{ author.name }} <img src="https://github.com/{{ author.github }}.png" width="32" height="32" /></div>
-	<div>{{ content }}</div>
-</article>
-{% if site.related_posts != empty %}
-<aside>
-  <h2>related</h2>
-  <ul>
-    {% for post in site.related_posts limit:3 %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-</aside>
-{% endif %}
+<div class="blog-post">
+	<h3>{{ post.title }} <small>{{ post.date | date_to_string }}</small></h3>
+	<p>{{ content }}</p>
+</div>
