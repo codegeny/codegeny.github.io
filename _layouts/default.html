@@ -6,6 +6,12 @@
 		<meta name="author" content="{{ page.author }}" />
 		<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Codegeny posts" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css" />
+		{% for style in page.styles %}
+		<link rel="stylesheet" href="{{ style }}" />
+		{% endfor %}
+		{% for script in page.scripts %}
+		<script src="{{ script }}"></script>
+		{% endfor %}
 	</head>
 	<body>
 		<div class="top-bar">
