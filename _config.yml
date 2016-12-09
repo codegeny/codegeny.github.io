@@ -1,4 +1,5 @@
 gems:
   - jekyll-feed
   - jekyll-gist
+  - jekyll-avatar
 permalink: pretty
