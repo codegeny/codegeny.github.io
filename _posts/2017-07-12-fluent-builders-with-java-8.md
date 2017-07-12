@@ -3,6 +3,7 @@ layout: post
 title: Fluent builders with java 8
 author: xavier
 category: general
+tag: java
 published: true
 scripts:
   - https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.js
