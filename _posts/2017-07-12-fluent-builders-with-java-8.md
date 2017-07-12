@@ -80,7 +80,7 @@ But creating those builders require a little effort.
 
 This is how I do it.
 
-```java 
+```java
 @FunctionalInterface
 public interface WithFirstName<T> {
     T withFirstName(String firstName);
@@ -106,7 +106,10 @@ public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<
 Which is used like this:
 
 ```java
-Person person = PersonBuilder.newPerson().withFirstName("Sherlock").withLastName("Holmes").withBirthDate(LocalDate.of(1854, 1, 6));
+Person person = PersonBuilder.newPerson()
+    .withFirstName("Sherlock")
+    .withLastName("Holmes")
+    .withBirthDate(LocalDate.of(1854, 1, 6));
 ```
 
 <script>
@@ -213,7 +216,12 @@ public interface WithAddresses<T> {
 
 public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<WithAddresses<Person>>>> {
     static PersonBuilder newPerson() {
-        return firstName -> lastName -> birthDate -> addresses -> new Person(firstName, lastName, birthDate, addresses);
+        return firstName -> lastName -> birthDate -> addresses -> new Person(
+        	firstName,
+        	lastName,
+        	birthDate,
+        	addresses
+        );
     }
 }
 
