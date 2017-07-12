@@ -18,36 +18,40 @@ Before I begin, let's distinguish 2 types of builders:
 * the restrictive builders
  
 An example of lenient builders is this one:
- 
-    public class PersonBuilder {
-     
-        private String firstName;
-        private String lastName;
-        private LocalDate birthDate;
- 
-        public PersonBuilder setFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
- 
-        public PersonBuilder setLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
- 
-        public PersonBuilder setBirthDate(LocalDate birthDate) {
-            this.birthDate = birthDate;
-            return this;
-        }
- 
-        public Person build() {
-            return new Person(...);
-        }
+
+```java 
+public class PersonBuilder {
+
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
+
+    public PersonBuilder setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
     }
+
+    public PersonBuilder setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public PersonBuilder setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    public Person build() {
+        return new Person(...);
+    }
+}
+```
 
 With a usage like this:
 
-    Person person = new PersonBuilder().setFirstName("Sherlock").setLastName("Holmes").build();
+```java 
+Person person = new PersonBuilder().setFirstName("Sherlock").setLastName("Holmes").build();
+```
 
 <script>
 ComplexDiagram(
@@ -74,31 +78,35 @@ So, personally, I prefer to have builder which will guide me and prevent me to c
 But creating those builders require a little effort.
 
 This is how I do it.
- 
-    @FunctionalInterface
-    public interface WithFirstName<T> {
-        T withFirstName(String firstName);
+
+```java 
+@FunctionalInterface
+public interface WithFirstName<T> {
+    T withFirstName(String firstName);
+}
+
+@FunctionalInterface
+public interface WithLastName<T> {
+    T withLastName(String lastName);
+}
+
+@FunctionalInterface
+public interface WithBirthDate<T> {
+    T withBirthDate(LocalDate birthDate);
+}
+
+public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<Person>>> {
+    static PersonBuilder newPerson() {
+        return firstName -> lastName -> birthDate -> new Person(firstName, lastName, birthDate);
     }
-    
-    @FunctionalInterface
-    public interface WithLastName<T> {
-        T withLastName(String lastName);
-    }
-    
-    @FunctionalInterface
-    public interface WithBirthDate<T> {
-        T withBirthDate(LocalDate birthDate);
-    }
-    
-    public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<Person>>> {
-        static PersonBuilder newPerson() {
-            return firstName -> lastName -> birthDate -> new Person(firstName, lastName, birthDate);
-        }
-    }
+}
+```
 
 Which is used like this:
 
-    Person person = PersonBuilder.newPerson().withFirstName("Sherlock").withLastName("Holmes").withBirthDate(LocalDate.of(1854, 1, 6));
+```java
+Person person = PersonBuilder.newPerson().withFirstName("Sherlock").withLastName("Holmes").withBirthDate(LocalDate.of(1854, 1, 6));
+```
 
 <script>
 ComplexDiagram(
@@ -111,108 +119,111 @@ ComplexDiagram(
 Some problem may arise if you have too much fields resulting in constructors having dozens of parameters.
  
 When that happens, I like to create a contract representing the state:
- 
-    public interface PersonState {
-        String getFirstName();
-        String getLastName();
-        LocalDate getBirthDate();
-        ... // even more fields
-    }
-    
-    public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<WithEvenMoreFields<Person>>>> {
-        static PersonBuilder newPerson() {
-            return firstName -> lastName -> birthDate -> even more fields -> new Person(new PersonState() {
-                public getFirstName() {
-                    return firstName:
-                }
-                public getLastName() {
-                    return lastName;
-                }
-                public getBirthDate() {
-                    return birthDate;
-                }
-                ...
-            });
-        }
-    }
-    
-    // implementing PersonState is not mandatory but can yield some benefit
-    public class Person implements PersonState {
-        public Person(PersonState state) {
-            this.firstName = state.getFirstName();
-            this.lastName = state.getLastName();
-            this.birthDate = state.getBirthDate();
+
+```java
+public interface PersonState {
+    String getFirstName();
+    String getLastName();
+    LocalDate getBirthDate();
+    ... // even more fields
+}
+
+public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<WithEvenMoreFields<Person>>>> {
+    static PersonBuilder newPerson() {
+        return firstName -> lastName -> birthDate -> even more fields -> new Person(new PersonState() {
+            public getFirstName() {
+                return firstName:
+            }
+            public getLastName() {
+                return lastName;
+            }
+            public getBirthDate() {
+                return birthDate;
+            }
             ...
-        }
- 
-        public Person clone() {
-            // possible only if Person implements PersonState
-            return new Person(this);
-        }
+        });
     }
+}
+
+// implementing PersonState is not mandatory but can yield some benefit
+public class Person implements PersonState {
+    public Person(PersonState state) {
+        this.firstName = state.getFirstName();
+        this.lastName = state.getLastName();
+        this.birthDate = state.getBirthDate();
+        ...
+    }
+
+    public Person clone() {
+        // possible only if Person implements PersonState
+        return new Person(this);
+    }
+}
+```
 
 Okay okay, that was easy. Now let's see how to build collections.
 
-    public interface WithStreet<T> { ... }
-    public interface WithBox<T> { ... }
-    public interface WithCity<T> { ... }
-    
-    public interface AddressBuilder<T> extends WithStreet<WithBox<WithCity<T>>> {
-        static <T> AddressBuilder<T> newAddress(Function<? super Address, T> chain) {
-            return street -> box -> city -> chain.apply(new Address(street, box, city));
-        }
-    }
-    
-    public class AddressesBuilder<T> {
+```java
+public interface WithStreet<T> { ... }
+public interface WithBox<T> { ... }
+public interface WithCity<T> { ... }
 
-        private final Function<? super Iterable<? extends Address>, T> chain;
-        private final List<Address> addresses = new LinkedList<>();
-    
-        public AddressesBuilder(Function<? super Iterable<Address>, T> chain) {
-            this.chain = chain;
-        }
-    
-        public AddressBuilder<AddressesBuilder<T>> add() {
-            return AddressBuilder.newAddress(this::add);
-        }
-    
-        public AddressesBuilder<T> add(Address address) {
-            this.addresses.add(address);
-            return this;
-        }
-    
-        public T end() {
-            return chain.apply(this.addresses);
-        }
+public interface AddressBuilder<T> extends WithStreet<WithBox<WithCity<T>>> {
+    static <T> AddressBuilder<T> newAddress(Function<? super Address, T> chain) {
+        return street -> box -> city -> chain.apply(new Address(street, box, city));
     }
-    
-    public interface WithAddresses<T> {
-    
-        T withAddresses(Iterable<Addresses> addresses);
+}
 
-        default AddressesBuilder<T> withAddresses() {
-            return new AddressesBuilder<>(this::withAddresses);
-        }
-    
-        default T withoutAddresses() {
-            return withAddresses(Collections.emptyList());
-        }
-    }
-    
-    public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<WithAddresses<Person>>>> {
-        static PersonBuilder newPerson() {
-            return firstName -> lastName -> birthDate -> addresses -> new Person(firstName, lastName, birthDate, addresses);
-        }
+public class AddressesBuilder<T> {
+
+    private final Function<? super Iterable<? extends Address>, T> chain;
+    private final List<Address> addresses = new LinkedList<>();
+
+    public AddressesBuilder(Function<? super Iterable<Address>, T> chain) {
+        this.chain = chain;
     }
 
-    Person person = PersonBuilder.newPerson()
-        .withFirstName("Sherlock")
-        .withLastName("Holmes")
-        .withBirthDate(LocalDate.of(1854, 1, 6))
-        .withAddresses()
-            .add().withStreet("Baker Street").withBox("221B").withCity("London")
-            .end() // addresses
+    public AddressBuilder<AddressesBuilder<T>> add() {
+        return AddressBuilder.newAddress(this::add);
+    }
 
+    public AddressesBuilder<T> add(Address address) {
+        this.addresses.add(address);
+        return this;
+    }
+
+    public T end() {
+        return chain.apply(this.addresses);
+    }
+}
+
+public interface WithAddresses<T> {
+
+    T withAddresses(Iterable<Addresses> addresses);
+
+    default AddressesBuilder<T> withAddresses() {
+        return new AddressesBuilder<>(this::withAddresses);
+    }
+
+    default T withoutAddresses() {
+        return withAddresses(Collections.emptyList());
+    }
+}
+
+public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<WithAddresses<Person>>>> {
+    static PersonBuilder newPerson() {
+        return firstName -> lastName -> birthDate -> addresses -> new Person(firstName, lastName, birthDate, addresses);
+    }
+}
+
+Person person = PersonBuilder.newPerson()
+    .withFirstName("Sherlock")
+    .withLastName("Holmes")
+    .withBirthDate(LocalDate.of(1854, 1, 6))
+    .withAddresses()
+        .add().withStreet("Baker Street").withBox("221B").withCity("London")
+        .end(); // addresses
+```
 
 <script>
 ComplexDiagram(
