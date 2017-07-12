@@ -1,4 +1,4 @@
-plugins:
+gems:
   - jekyll-feed
   - jekyll-gist
   - jekyll-avatar
