@@ -43,7 +43,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(...);
+        return new Person(firstName, lastName, birthDate);
     }
 }
 ```
@@ -217,10 +217,10 @@ public interface WithAddresses<T> {
 public interface PersonBuilder extends WithFirstName<WithLastName<WithBirthDate<WithAddresses<Person>>>> {
     static PersonBuilder newPerson() {
         return firstName -> lastName -> birthDate -> addresses -> new Person(
-        	firstName,
-        	lastName,
-        	birthDate,
-        	addresses
+            firstName,
+            lastName,
+            birthDate,
+            addresses
         );
     }
 }
