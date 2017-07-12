@@ -4,5 +4,12 @@ layout: default
 {% assign author = site.data.authors[page.author] %}
 <div class="blog-post">
 	<h3>{{ page.title }} <small>{{ page.date | date_to_string }} by {{ author.name }} {% avatar {{ author.github }} size=32 %}</small></h3>
+	{% if page.tags %} |
+		<div> 
+			{% for tag in page.tags %}
+			<a href="{{ site.baseurl }}/tags#{{ tag | slugify }}" class="label">{{ tag }}</a>
+			{% endfor %}
+		</div>
+	{% endif %}
 	<p>{{ content }}</p>
 </div>
