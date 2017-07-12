@@ -3,16 +3,14 @@ layout: default
 title: tags
 author: codegeny
 ---
-{% for tag in tags %}
+{% for tag in site.tags %}
 <div class="blog-post">
-	<h3 id="{{ tag | slugify }}">{{ tag }}</h3>
+	<h3 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h3>
 	<ul>
-	 {% for post in site.posts %}
-		 {% if post.tags contains tag %}
-		 <li>
-		 	<h4><a href="{{ post.url }}">{{ post.title }}</a> <small>{{ post.date | date_to_string }}</small><h4>
-		 </li>
-		 {% endif %}
-	 {% endfor %}
+		{% for post in tag[1] %}
+		<li>
+			<h4><a href="{{ post.url }}">{{ post.title }}</a> <small>{{ post.date | date_to_string }}</small><h4>
+		</li>
+		{% endfor %}
 	</ul>
 {% endfor %}
