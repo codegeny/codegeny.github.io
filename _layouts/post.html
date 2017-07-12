@@ -2,16 +2,21 @@
 layout: default
 ---
 {% assign author = site.data.authors[page.author] %}
-<div class="row medium-8 large-7 columns">
-	<div class="blog-post">
-		<h3>{{ page.title }} <small>{{ page.date | date_to_string }} by {{ author.name }} {% avatar {{ author.github }} size=32 %}</small></h3>
-		{% if page.tags %}
-			<div> 
+ <section class="post">
+	<header class="post-header">
+		<span class="post-avatar">{% avatar {{ author.github }} size=48 %}</span>
+		<h2 class="post-title">{{ page.title }}</h2>
+		<p class="post-meta">
+			{{ page.date | date_to_string }} by <a class="post-author" href="#">{{ author.name }}</a>
+			{% if page.tags != empty %}
+				under
 				{% for tag in page.tags %}
-				<a href="{{ site.baseurl }}/tags#{{ tag | slugify }}" class="label">{{ tag }}</a>
+				<a href="{{ site.baseurl }}/tags#{{ tag | slugify }}" class="post-category">{{ tag }}</a>
 				{% endfor %}
-			</div>
-		{% endif %}
+			{% endif %}
+		</p>
+	</header>
+	<div class="post-description">
 		<p>{{ content }}</p>
 	</div>
-</div>
+</section> 

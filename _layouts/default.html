@@ -1,13 +1,26 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<title>{{ page.title }}</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="{{ page.author }}" />
+		<meta name="description" content="Codegeny blog">
+		<title>{{ page.title }}</title>
 		<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Codegeny posts" />
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/highlights.css" />
-		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/foundation.css" />
+<!--[if lte IE 8]>
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+<!--<![endif]-->
+<!--[if lte IE 8]>
+		<link rel="stylesheet" href="{{ site.baseurl }}/css/blog-old-ie.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+		<link rel="stylesheet" href="{{ site.baseurl }}/css/blog.css">
+<!--<![endif]-->
 		{% for style in page.styles %}
 		<link rel="stylesheet" href="{{ style }}" />
 		{% endfor %}
@@ -16,23 +29,28 @@
 		{% endfor %}
 	</head>
 	<body>
-		<div class="top-bar">
-			<div class="top-bar-left">
-				<ul class="menu">
-					<li><a href="/">codegeny</a></li>
-				</ul>
+		<div id="layout" class="pure-g">
+			<div class="sidebar pure-u-1 pure-u-md-1-4">
+				<div class="header">
+					<h1 class="brand-title">codegeny blog</h1>
+					<h2 class="brand-tagline">This blog is a Work In Progress</h2>
+					<nav class="nav">
+						<ul class="nav-list">
+							<li class="nav-item">
+								<a class="pure-button" href="/">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="pure-button" href="{{ site.baseurl }}/tags">Tags</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
-			<div class="top-bar-right">
-				<ul class="menu">
-					<li class="menu-text">This blog is a Work In Progress</li>
-				</ul>
+			<div class="content pure-u-1 pure-u-md-3-4">
+				<div> 
+					{{ content }}
+				</div>
 			</div>
 		</div>
- 		<div class="callout large primary">
-			<div class="row column text-center">
-				<h1>codegeny blog</h1>
-			</div>
-		</div>
-		{{ content }}
 	</body>
 </html>

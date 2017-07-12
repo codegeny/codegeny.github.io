@@ -3,28 +3,25 @@ layout: default
 title: codegeny
 author: codegeny
 ---
-<div class="row" id="content">
-	<div class="medium-8 columns">
-		{% for post in site.posts %}
-		<div class="blog-post">
-			<h3><a href="{{ post.url }}">{{ post.title }}</a> <small>{{ post.date | date_to_string }}</small></h3>
+ <div class="posts">
+	<h1 class="content-subhead">Recent posts</h1>
+	{% for post in site.posts %}
+	<section class="post">
+		<header class="post-header">
+			<h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+			<p class="post-meta">
+			{{ post.date | date_to_string }} by <a class="post-author" href="#">{{ site.data.authors[post.author].name }}</a>
+			{% if post.tags != empty %}
+				under
+				{% for tag in post.tags %}
+				<a href="{{ site.baseurl }}/tags#{{ tag | slugify }}" class="post-category">{{ tag }}</a>
+				{% endfor %}
+			{% endif %}
+		</p>
+		</header>
+		<div class="post-description">
 			<p>{{ post.excerpt }}</p>
 		</div>
-		{% endfor %}
-	</div>
-	<div class="medium-3 columns" data-sticky-container>
-		<div class="sticky" data-sticky data-anchor="content">
-			<h4>Tags</h4>
-			<ul>
-				{% for tag in site.tags %}
-				<li><a href="{{ site.baseurl }}/tags#{{ tag[0] | slugify }}">{{ tag[0] }}</a></li>
-				{% endfor %}
-			</ul>
-			<h4>Authors</h4>
-			<ul>
-				<li><a href="#">Xavier</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
-
+	</section>
+	{% endfor %}
+</div> 
