@@ -228,11 +228,9 @@ Person person = PersonBuilder.newPerson()
 <script>
 ComplexDiagram(
   Stack(
-    Sequence(
-      NonTerminal('withFirstName(firstName)'),
-      NonTerminal('withLastName(lastName)'),
-      NonTerminal('withBirthDate(birthDate)')
-    ),
+    NonTerminal('withFirstName(firstName)'),
+    NonTerminal('withLastName(lastName)'),
+    NonTerminal('withBirthDate(birthDate)'),
     Choice(0,
       NonTerminal('withoutAddresses()'),
       NonTerminal('withAddresses(addresses)'),
@@ -242,9 +240,11 @@ ComplexDiagram(
           NonTerminal('add(address)'),
           Sequence(
             NonTerminal('add()'),
-            NonTerminal('withStreet(street)'),
-            NonTerminal('withBox(box)'),
-            NonTerminal('withCity(city)')
+            Stack(
+              NonTerminal('withStreet(street)'),
+              NonTerminal('withBox(box)'),
+              NonTerminal('withCity(city)')
+            )
           )
         ),
         NonTerminal('end()')
@@ -259,11 +259,13 @@ So where do I use such builders? I use them when I need to convert from an exter
 By doing so, I am sure no property is forgotten and if I add something in my builder and forget to adapt the client code, it won't compile anymore.
  
 I am also using those builders in my tests but you have to be careful: if your model is changing everyday, maintaining tests can be a nightmare... that is why, you have to factorize as much as possible your test data. Make some factory method which will create test data for common scenari and use that data instead of recreating it for each test (or worse like copy/pasting it).
- 
-    public class PersonFixtures {
-        public static Person newWorkerPerson() { ... }
-        public static Person newStudentPerson() { ... }
-        public static Person newRetiredPerson() { ... }
-    }
+
+```java 
+public class PersonFixtures {
+    public static Person newWorkerPerson() { ... }
+    public static Person newStudentPerson() { ... }
+    public static Person newRetiredPerson() { ... }
+}
+```
  
 Then adapt/derive one common scenario for your test.
