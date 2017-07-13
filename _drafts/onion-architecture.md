@@ -2,9 +2,9 @@
 layout: post
 title: Onion architecture
 author: xavier
-category: general
-tag: java domain-driven
-published: false
+tag:
+  - java
+  - domain-driven
 ---
 
 
