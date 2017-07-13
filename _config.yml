@@ -4,4 +4,5 @@ gems:
   - jekyll-avatar
   - jekyll-paginate
 permalink: pretty
-
+paginate: 5
+paginate_path: "/page-:num/"

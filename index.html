@@ -5,7 +5,7 @@ author: codegeny
 ---
  <div class="posts">
 	<h1 class="content-subhead">Recent posts</h1>
-	{% for post in site.posts %}
+	{% for post in paginator.posts %}
 	{% assign author = site.data.authors[post.author] %}
 	<section class="post">
 		<header class="post-header">
@@ -27,3 +27,19 @@ author: codegeny
 	</section>
 	{% endfor %}
 </div> 
+
+<div class="pure-menu pure-menu-horizontal">
+	<ul class="pure-menu-list">
+		{% if paginator.previous_page %}
+		<li class="pure-menu-item"><a href="{{ paginator.previous_page_path }}" class="pure-menu-link">Previous</a></li>
+		{% else %}
+		<li class="pure-menu-item pure-menu-disabled">Previous</li>
+		{% endif %}
+		<li class="pure-menu-item pure-menu-selected">Page: {{ paginator.page }} of {{ paginator.total_pages }}</li>
+		{% if paginator.next_page %}
+		<li class="pure-menu-item"><a href="{{ paginator.next_page_path }}" class="pure-menu-link">Next</a></li>
+		{% else %}
+		<li class="pure-menu-item pure-menu-disabled">Next</li>
+		{% endif %}
+	</ul>
+</div>
