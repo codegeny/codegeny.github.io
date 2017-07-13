@@ -10,6 +10,10 @@ author: codegeny
 		<header class="post-header">
 			<span class="post-avatar">{% avatar {{ author[1].github }} size=48 %}</span>
 			<h2 class="post-title" id="{{ author[0] | slugify }}">{{ author[1].name }}</h2>
+			<p class="post-meta">
+				<a href="https://twitter.com/{{ author[1].twitter }}" class="post-category">twitter</a>
+				<a href="https://github.com/{{ author[1].github }}" class="post-category">github</a>
+			</p>
 		</header>
 		<div class="post-description">
 			<ul>
