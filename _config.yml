@@ -2,4 +2,6 @@ gems:
   - jekyll-feed
   - jekyll-gist
   - jekyll-avatar
+  - jekyll-paginate
 permalink: pretty
+disqus_short_name: test

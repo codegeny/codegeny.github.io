@@ -1,0 +1,27 @@
+---
+layout: default
+title: authors
+author: codegeny
+---
+<div class="posts">
+	<h1 class="content-subhead">Authors</h1>
+	{% for author in site.data.authors %}
+	<section class="post">
+		<header class="post-header">
+			<span class="post-avatar">{% avatar {{ author[1].github }} size=48 %}</span>
+			<h2 class="post-title" id="{{ author[0] | slugify }}">{{ author[1].name }}</h2>
+		</header>
+		<div class="post-description">
+			<ul>
+				{% for post in site.posts %}
+				{% if post.author == author[0] %}
+				<li>
+					<a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</section>
+	{% endfor %}
+</div> 

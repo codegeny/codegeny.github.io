@@ -1,5 +1,6 @@
 ---
 layout: default
+comments: false
 ---
 {% assign author = site.data.authors[page.author] %}
  <section class="post">
@@ -7,7 +8,7 @@ layout: default
 		<span class="post-avatar">{% avatar {{ author.github }} size=48 %}</span>
 		<h2 class="post-title">{{ page.title }}</h2>
 		<p class="post-meta">
-			{{ page.date | date_to_string }} by <a class="post-author" href="#">{{ author.name }}</a>
+			{{ page.date | date_to_string }} by <a class="post-author" href="{{ site.baseurl }}/authors#{{ page.author | slugify }}">{{ author.name }}</a>
 			{% if page.tags != empty %}
 				under
 				{% for tag in page.tags %}
@@ -16,7 +17,15 @@ layout: default
 			{% endif %}
 		</p>
 	</header>
-	<div class="post-description">
-		<p>{{ content }}</p>
-	</div>
+	<div class="post-description">{{ content }}</div>
 </section> 
+
+{% if page.comments %}
+<div class="comments">
+	<h1 class="content-subhead">Comments</h1>
+	{% include disqus.html %} 
+</div>
+{% endif %}
+
+
+

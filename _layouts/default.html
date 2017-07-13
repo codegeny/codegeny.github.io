@@ -7,20 +7,16 @@
 		<meta name="description" content="Codegeny blog">
 		<title>{{ page.title }}</title>
 		<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Codegeny posts" />
-		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" />
 		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/highlights.css" />
-<!--[if lte IE 8]>
-		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
-<![endif]-->
 <!--[if gt IE 8]><!-->
-		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css" />
+		<link rel="stylesheet" href="{{ site.baseurl }}/css/blog.css" />
 <!--<![endif]-->
 <!--[if lte IE 8]>
-		<link rel="stylesheet" href="{{ site.baseurl }}/css/blog-old-ie.css">
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css" />
+		<link rel="stylesheet" href="{{ site.baseurl }}/css/blog-old-ie.css" />
 <![endif]-->
-<!--[if gt IE 8]><!-->
-		<link rel="stylesheet" href="{{ site.baseurl }}/css/blog.css">
-<!--<![endif]-->
 		{% for style in page.styles %}
 		<link rel="stylesheet" href="{{ style }}" />
 		{% endfor %}
@@ -33,7 +29,7 @@
 			<div class="sidebar pure-u-1 pure-u-md-1-4">
 				<div class="header">
 					<h1 class="brand-title">codegeny blog</h1>
-					<h2 class="brand-tagline">This blog is a Work In Progress</h2>
+					<h2 class="brand-tagline">(work in progress)</h2>
 					<nav class="nav">
 						<ul class="nav-list">
 							<li class="nav-item">
@@ -47,9 +43,7 @@
 				</div>
 			</div>
 			<div class="content pure-u-1 pure-u-md-3-4">
-				<div> 
-					{{ content }}
-				</div>
+				<div>{{ content }}</div>
 			</div>
 		</div>
 	</body>

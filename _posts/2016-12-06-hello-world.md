@@ -3,10 +3,6 @@ layout: post
 title: Hello world!
 author: xavier
 category: general
-scripts:
-  - https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.js
-styles:
-  - https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.css
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -40,22 +36,3 @@ necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae
 non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
 reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
 asperiores repellat.
-
-<script>
-ComplexDiagram(
-  Choice(0,
-  	Skip(),
-  	'-'
-  ),
-  Choice(0,
-    NonTerminal('name-start char'),
-    NonTerminal('escape')
-  ),
-  ZeroOrMore(
-    Choice(0,
-      NonTerminal('name char'),
-      NonTerminal('escape')
-    )
-  )
-).addTo();
-</script>
