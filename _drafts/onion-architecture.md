@@ -5,6 +5,7 @@ author: xavier
 tag:
   - java
   - domain-driven
+  - architecture
 ---
 
 
