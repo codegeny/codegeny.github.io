@@ -40,9 +40,11 @@
 							<li class="nav-item">
 								<a class="pure-button" href="/">Home</a>
 							</li>
+							{% if site.tags != empty %} 
 							<li class="nav-item">
 								<a class="pure-button" href="{{ site.baseurl }}/tags">Tags</a>
 							</li>
+							{% endif %}
 						</ul>
 					</nav>
 				</div>
